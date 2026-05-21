@@ -34,9 +34,6 @@
   .accordion.open .accordion-body { display: block; }
   .acc-hint { font-size: 10px; color: var(--text-3); font-family: var(--mono); line-height: 1.5; }
 
-  .ro-group { background: var(--surface-2); border-radius: 5px; padding: 10px 10px 4px; margin-bottom: 10px; }
-  .ro-group-label { font-size: 10px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2); margin-bottom: 8px; }
-
   .slider-block { margin-bottom: 13px; }
   .slider-block label { font-size: 11px; color: var(--text-3); display: block; margin-bottom: 3px; }
   .slider-block input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 3px; background: var(--border-strong); border-radius: 2px; outline: none; display: block; margin-bottom: 4px; }
@@ -44,9 +41,8 @@
   .slider-block input[type=number] { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; width: 100%; outline: none; -moz-appearance: textfield; }
   .slider-block input[type=number]::-webkit-inner-spin-button, .slider-block input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
   .slider-block input[type=number]:focus { border-color: var(--accent); background: var(--surface); }
-
   .shared-tag { display: inline-block; font-size: 9px; font-family: var(--mono); background: var(--amber-bg); color: var(--amber); border-radius: 3px; padding: 1px 5px; margin-left: 4px; vertical-align: middle; }
-  .ann-tag    { display: inline-block; font-size: 9px; font-family: var(--mono); color: var(--text-3); margin-left: 4px; }
+  .ann-tag { display: inline-block; font-size: 9px; font-family: var(--mono); color: var(--text-3); margin-left: 4px; }
 
   .fin-total { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
   .fin-total-label { font-size: 11px; color: var(--text-2); font-family: var(--mono); }
@@ -62,9 +58,9 @@
   .card-value.red   { color: var(--red); }
 
   .reorder-timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
-  .ro-card { border-radius: 6px; padding: 0.9rem 1.1rem; border: 1px solid var(--border); }
-  .ro-card.ro1 { background: var(--surface); border-left: 3px solid #C2410C; }
-  .ro-card.ro2 { background: var(--surface); border-left: 3px solid #1D4ED8; }
+  .ro-card { border-radius: 6px; padding: 0.9rem 1.1rem; border: 1px solid var(--border); background: var(--surface); }
+  .ro-card.ro1 { border-left: 3px solid #C2410C; }
+  .ro-card.ro2 { border-left: 3px solid #1D4ED8; }
   .ro-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
   .ro-card-name { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
   .ro-card-badge { font-size: 10px; font-family: var(--mono); padding: 2px 8px; border-radius: 3px; font-weight: 500; }
@@ -76,9 +72,9 @@
 
   .chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.1rem 1.4rem; margin-bottom: 1.25rem; }
   .chart-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.9rem; }
-  .chart-legend { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-2); }
-  .legend-dot  { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .legend-dot  { width: 10px; height: 3px; border-radius: 1px; flex-shrink: 0; }
 
   .scenario-box { background: var(--surface-2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 0.9rem 1.1rem; margin-bottom: 1.25rem; }
   .scenario-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
@@ -105,189 +101,63 @@
 <div class="layout">
 <aside class="sidebar">
 
-  <!-- DEMAND -->
   <div class="accordion open" id="acc-demand">
-    <div class="accordion-header" onclick="toggleAcc('acc-demand')">
-      <span>Demand &amp; velocity</span><i class="accordion-arrow">&#9660;</i>
-    </div>
+    <div class="accordion-header" onclick="toggleAcc('acc-demand')"><span>Demand &amp; velocity</span><i class="accordion-arrow">&#9660;</i></div>
     <div class="accordion-body">
-      <div class="slider-block">
-        <label>Shirts sold / month</label>
-        <input type="range" id="shirtVel" min="0" max="1000" step="1" value="100">
-        <input type="number" id="shirtVelN" value="100" min="0" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Pants sold / month</label>
-        <input type="range" id="pantVel" min="0" max="500" step="1" value="50">
-        <input type="number" id="pantVelN" value="50" min="0" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Kit mix — % of pants sold as kits</label>
-        <input type="range" id="kitMix" min="0" max="100" step="1" value="25">
-        <input type="number" id="kitMixN" value="25" min="0" max="100" step="1">
-      </div>
+      <div class="slider-block"><label>Shirts sold / month</label><input type="range" id="shirtVel" min="0" max="1000" step="1" value="100"><input type="number" id="shirtVelN" value="100" min="0" step="1"></div>
+      <div class="slider-block"><label>Pants sold / month</label><input type="range" id="pantVel" min="0" max="500" step="1" value="50"><input type="number" id="pantVelN" value="50" min="0" step="1"></div>
+      <div class="slider-block"><label>Kit mix — % of pants sold as kits</label><input type="range" id="kitMix" min="0" max="100" step="1" value="25"><input type="number" id="kitMixN" value="25" min="0" max="100" step="1"></div>
       <p class="acc-hint" style="margin-top:-4px;">Kit = 2 shirts + 1 pant @ $275. Kit mix % of pants/month become kits, each consuming 2 shirts.</p>
     </div>
   </div>
 
-  <!-- REORDER 1 -->
   <div class="accordion open" id="acc-ro1">
-    <div class="accordion-header" onclick="toggleAcc('acc-ro1')">
-      <span>Reorder 1</span><i class="accordion-arrow">&#9660;</i>
-    </div>
+    <div class="accordion-header" onclick="toggleAcc('acc-ro1')"><span>Reorder 1</span><i class="accordion-arrow">&#9660;</i></div>
     <div class="accordion-body">
-      <div class="slider-block">
-        <label>Shirts (units)</label>
-        <input type="range" id="ro1Shirts" min="0" max="5000" step="1" value="1000">
-        <input type="number" id="ro1ShirtsN" value="1000" min="0" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Pants (units)</label>
-        <input type="range" id="ro1Pants" min="0" max="3000" step="1" value="500">
-        <input type="number" id="ro1PantsN" value="500" min="0" step="1">
-      </div>
+      <div class="slider-block"><label>Shirts (units)</label><input type="range" id="ro1Shirts" min="0" max="5000" step="1" value="1000"><input type="number" id="ro1ShirtsN" value="1000" min="0" step="1"></div>
+      <div class="slider-block"><label>Pants (units)</label><input type="range" id="ro1Pants" min="0" max="3000" step="1" value="500"><input type="number" id="ro1PantsN" value="500" min="0" step="1"></div>
     </div>
   </div>
 
-  <!-- REORDER 2 -->
   <div class="accordion open" id="acc-ro2">
-    <div class="accordion-header" onclick="toggleAcc('acc-ro2')">
-      <span>Reorder 2</span><i class="accordion-arrow">&#9660;</i>
-    </div>
+    <div class="accordion-header" onclick="toggleAcc('acc-ro2')"><span>Reorder 2</span><i class="accordion-arrow">&#9660;</i></div>
     <div class="accordion-body">
-      <div class="slider-block">
-        <label>Shirts (units)</label>
-        <input type="range" id="ro2Shirts" min="0" max="8000" step="1" value="1500">
-        <input type="number" id="ro2ShirtsN" value="1500" min="0" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Pants (units)</label>
-        <input type="range" id="ro2Pants" min="0" max="5000" step="1" value="750">
-        <input type="number" id="ro2PantsN" value="750" min="0" step="1">
-      </div>
+      <div class="slider-block"><label>Shirts (units)</label><input type="range" id="ro2Shirts" min="0" max="8000" step="1" value="1500"><input type="number" id="ro2ShirtsN" value="1500" min="0" step="1"></div>
+      <div class="slider-block"><label>Pants (units)</label><input type="range" id="ro2Pants" min="0" max="5000" step="1" value="750"><input type="number" id="ro2PantsN" value="750" min="0" step="1"></div>
     </div>
   </div>
 
-  <!-- FINANCIAL -->
   <div class="accordion open" id="acc-fin">
-    <div class="accordion-header" onclick="toggleAcc('acc-fin')">
-      <span>Monthly financial commitments</span><i class="accordion-arrow">&#9660;</i>
-    </div>
+    <div class="accordion-header" onclick="toggleAcc('acc-fin')"><span>Monthly financial commitments</span><i class="accordion-arrow">&#9660;</i></div>
     <div class="accordion-body">
-      <div class="slider-block">
-        <label>Your share of shared expenses (%)</label>
-        <input type="range" id="sharedPct" min="0" max="100" step="1" value="50">
-        <input type="number" id="sharedPctN" value="50" min="0" max="100" step="1">
-      </div>
+      <div class="slider-block"><label>Your share of shared expenses (%)</label><input type="range" id="sharedPct" min="0" max="100" step="1" value="50"><input type="number" id="sharedPctN" value="50" min="0" max="100" step="1"></div>
       <p class="acc-hint" style="margin-bottom:10px;">Items marked <span class="shared-tag">shared</span> are multiplied by your share %.</p>
-      <div class="slider-block">
-        <label>Rent <span class="shared-tag">shared</span></label>
-        <input type="range" id="rent" min="0" max="20000" step="100" value="3200">
-        <input type="number" id="rentN" value="3200" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>Credit cards <span class="shared-tag">shared</span></label>
-        <input type="range" id="cc" min="0" max="50000" step="100" value="2000">
-        <input type="number" id="ccN" value="2000" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>Bills / utilities / car <span class="shared-tag">shared</span></label>
-        <input type="range" id="bills" min="0" max="10000" step="25" value="600">
-        <input type="number" id="billsN" value="600" min="0" step="25">
-      </div>
-      <div class="slider-block">
-        <label>Backpay / repayment</label>
-        <input type="range" id="backpay" min="0" max="30000" step="100" value="0">
-        <input type="number" id="backpayN" value="0" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>30th birthday fund <span class="ann-tag">(one-time)</span></label>
-        <input type="range" id="bday" min="0" max="20000" step="100" value="10000">
-        <input type="number" id="bdayN" value="10000" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>401k contributions <span class="ann-tag">(annual)</span></label>
-        <input type="range" id="k401" min="0" max="70000" step="500" value="0">
-        <input type="number" id="k401N" value="0" min="0" step="500">
-      </div>
-      <div class="slider-block">
-        <label>Kristen Roth IRA <span class="ann-tag">(annual)</span></label>
-        <input type="range" id="ira" min="0" max="15000" step="100" value="0">
-        <input type="number" id="iraN" value="0" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>House fund / savings</label>
-        <input type="range" id="house" min="0" max="50000" step="100" value="0">
-        <input type="number" id="houseN" value="0" min="0" step="100">
-      </div>
-      <div class="slider-block">
-        <label>Working capital buffer <span class="ann-tag">(one-time reserve)</span></label>
-        <input type="range" id="wcBuffer" min="0" max="100000" step="500" value="10000">
-        <input type="number" id="wcBufferN" value="10000" min="0" step="500">
-      </div>
-      <div class="fin-total">
-        <span class="fin-total-label">Your monthly obligations</span>
-        <span class="fin-total-val" id="finTotal">—</span>
-      </div>
-      <div class="fin-total" style="border-top:none;margin-top:3px;">
-        <span class="fin-total-label" style="color:var(--text-3);">One-time cash needed</span>
-        <span class="fin-total-val" style="font-size:12px;" id="finOneTime">—</span>
-      </div>
+      <div class="slider-block"><label>Rent <span class="shared-tag">shared</span></label><input type="range" id="rent" min="0" max="20000" step="100" value="3200"><input type="number" id="rentN" value="3200" min="0" step="100"></div>
+      <div class="slider-block"><label>Credit cards <span class="shared-tag">shared</span></label><input type="range" id="cc" min="0" max="50000" step="100" value="2000"><input type="number" id="ccN" value="2000" min="0" step="100"></div>
+      <div class="slider-block"><label>Bills / utilities / car <span class="shared-tag">shared</span></label><input type="range" id="bills" min="0" max="10000" step="25" value="600"><input type="number" id="billsN" value="600" min="0" step="25"></div>
+      <div class="slider-block"><label>Backpay / repayment</label><input type="range" id="backpay" min="0" max="30000" step="100" value="0"><input type="number" id="backpayN" value="0" min="0" step="100"></div>
+      <div class="slider-block"><label>30th birthday fund <span class="ann-tag">(one-time)</span></label><input type="range" id="bday" min="0" max="20000" step="100" value="10000"><input type="number" id="bdayN" value="10000" min="0" step="100"></div>
+      <div class="slider-block"><label>401k contributions <span class="ann-tag">(annual)</span></label><input type="range" id="k401" min="0" max="70000" step="500" value="0"><input type="number" id="k401N" value="0" min="0" step="500"></div>
+      <div class="slider-block"><label>Kristen Roth IRA <span class="ann-tag">(annual)</span></label><input type="range" id="ira" min="0" max="15000" step="100" value="0"><input type="number" id="iraN" value="0" min="0" step="100"></div>
+      <div class="slider-block"><label>House fund / savings</label><input type="range" id="house" min="0" max="50000" step="100" value="0"><input type="number" id="houseN" value="0" min="0" step="100"></div>
+      <div class="slider-block"><label>Working capital buffer <span class="ann-tag">(reserve)</span></label><input type="range" id="wcBuffer" min="0" max="100000" step="500" value="10000"><input type="number" id="wcBufferN" value="10000" min="0" step="500"></div>
+      <div class="fin-total"><span class="fin-total-label">Monthly obligations</span><span class="fin-total-val" id="finTotal">—</span></div>
     </div>
   </div>
 
-  <!-- LEAD TIMES -->
   <div class="accordion" id="acc-lt">
-    <div class="accordion-header" onclick="toggleAcc('acc-lt')">
-      <span>Lead times</span><i class="accordion-arrow">&#9660;</i>
-    </div>
+    <div class="accordion-header" onclick="toggleAcc('acc-lt')"><span>Lead times</span><i class="accordion-arrow">&#9660;</i></div>
     <div class="accordion-body">
       <p class="acc-hint" style="margin-bottom:10px;">All times in days. Parallel items run simultaneously.</p>
-      <div class="slider-block">
-        <label>Pant fabric — in-house mill</label>
-        <input type="range" id="ltPantFabric" min="1" max="120" step="1" value="30">
-        <input type="number" id="ltPantFabricN" value="30" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Pant zipper <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel w/ fabric</span></label>
-        <input type="range" id="ltPantZipper" min="1" max="60" step="1" value="20">
-        <input type="number" id="ltPantZipperN" value="20" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Shirt fabric production — Japan</label>
-        <input type="range" id="ltShirtFabric" min="0" max="120" step="1" value="45">
-        <input type="number" id="ltShirtFabricN" value="45" min="0" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Shirt fabric ship — Japan → factory</label>
-        <input type="range" id="ltShirtFabricShip" min="1" max="30" step="1" value="7">
-        <input type="number" id="ltShirtFabricShipN" value="7" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Shirt buttons <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel w/ fabric</span></label>
-        <input type="range" id="ltShirtButtons" min="1" max="60" step="1" value="21">
-        <input type="number" id="ltShirtButtonsN" value="21" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Production / manufacturing</label>
-        <input type="range" id="ltProduction" min="7" max="90" step="1" value="28">
-        <input type="number" id="ltProductionN" value="28" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Labels / tags <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel</span></label>
-        <input type="range" id="ltLabels" min="1" max="30" step="1" value="10">
-        <input type="number" id="ltLabelsN" value="10" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Freight — air (days)</label>
-        <input type="range" id="ltAir" min="1" max="21" step="1" value="7">
-        <input type="number" id="ltAirN" value="7" min="1" step="1">
-      </div>
-      <div class="slider-block">
-        <label>Freight — ocean (days)</label>
-        <input type="range" id="ltOcean" min="20" max="90" step="1" value="45">
-        <input type="number" id="ltOceanN" value="45" min="1" step="1">
-      </div>
+      <div class="slider-block"><label>Pant fabric — in-house mill</label><input type="range" id="ltPantFabric" min="1" max="120" step="1" value="30"><input type="number" id="ltPantFabricN" value="30" min="1" step="1"></div>
+      <div class="slider-block"><label>Pant zipper <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel</span></label><input type="range" id="ltPantZipper" min="1" max="60" step="1" value="20"><input type="number" id="ltPantZipperN" value="20" min="1" step="1"></div>
+      <div class="slider-block"><label>Shirt fabric production — Japan</label><input type="range" id="ltShirtFabric" min="0" max="120" step="1" value="45"><input type="number" id="ltShirtFabricN" value="45" min="0" step="1"></div>
+      <div class="slider-block"><label>Shirt fabric ship — Japan → factory</label><input type="range" id="ltShirtFabricShip" min="1" max="30" step="1" value="7"><input type="number" id="ltShirtFabricShipN" value="7" min="1" step="1"></div>
+      <div class="slider-block"><label>Shirt buttons <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel</span></label><input type="range" id="ltShirtButtons" min="1" max="60" step="1" value="21"><input type="number" id="ltShirtButtonsN" value="21" min="1" step="1"></div>
+      <div class="slider-block"><label>Production / manufacturing</label><input type="range" id="ltProduction" min="7" max="90" step="1" value="28"><input type="number" id="ltProductionN" value="28" min="1" step="1"></div>
+      <div class="slider-block"><label>Labels / tags <span style="font-size:9px;color:var(--text-3);font-family:var(--mono);">parallel</span></label><input type="range" id="ltLabels" min="1" max="30" step="1" value="10"><input type="number" id="ltLabelsN" value="10" min="1" step="1"></div>
+      <div class="slider-block"><label>Freight — air (days)</label><input type="range" id="ltAir" min="1" max="21" step="1" value="7"><input type="number" id="ltAirN" value="7" min="1" step="1"></div>
+      <div class="slider-block"><label>Freight — ocean (days)</label><input type="range" id="ltOcean" min="20" max="90" step="1" value="45"><input type="number" id="ltOceanN" value="45" min="1" step="1"></div>
       <div class="slider-block">
         <label>Freight mode</label>
         <select id="freightMode" style="font-family:var(--mono);font-size:13px;width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:4px;background:var(--surface-2);color:var(--text);outline:none;margin-top:2px;">
@@ -295,19 +165,9 @@
           <option value="ocean">Ocean</option>
         </select>
       </div>
-      <div class="slider-block">
-        <label>Safety stock (months)</label>
-        <input type="range" id="safety" min="0" max="6" step="0.1" value="1">
-        <input type="number" id="safetyN" value="1" min="0" step="0.1">
-      </div>
-      <div class="fin-total">
-        <span class="fin-total-label">Shirt total LT</span>
-        <span class="fin-total-val" id="shirtLTCalc">—</span>
-      </div>
-      <div class="fin-total" style="border-top:none;margin-top:2px;">
-        <span class="fin-total-label">Pant total LT</span>
-        <span class="fin-total-val" id="pantLTCalc">—</span>
-      </div>
+      <div class="slider-block"><label>Safety stock (months)</label><input type="range" id="safety" min="0" max="6" step="0.1" value="1"><input type="number" id="safetyN" value="1" min="0" step="0.1"></div>
+      <div class="fin-total"><span class="fin-total-label">Shirt total LT</span><span class="fin-total-val" id="shirtLTCalc">—</span></div>
+      <div class="fin-total" style="border-top:none;margin-top:2px;"><span class="fin-total-label">Pant total LT</span><span class="fin-total-val" id="pantLTCalc">—</span></div>
     </div>
   </div>
 
@@ -315,20 +175,18 @@
 
 <main class="main">
   <div class="cards-grid" id="cards"></div>
-
   <div class="reorder-timeline" id="roTimeline"></div>
 
   <div class="chart-wrap">
-    <div class="chart-title">Inventory &amp; cash — 36 months post-launch</div>
-    <div style="position:relative;width:100%;height:340px;">
-      <canvas id="burnChart" role="img" aria-label="Inventory and cash chart with reorder events over 36 months"></canvas>
+    <div class="chart-title">Cash flow &amp; inventory — 36 months post-launch</div>
+    <div style="position:relative;width:100%;height:360px;">
+      <canvas id="burnChart" role="img" aria-label="Actual cash flow, notional cash flow, and inventory chart over 36 months"></canvas>
     </div>
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#2D6A4F;"></div>Cumulative net cash</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#C2410C;"></div>Shirts remaining</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;"></div>Pants remaining</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#C2410C;border-radius:50%;width:8px;height:8px;"></div>RO1 trigger / land</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;border-radius:50%;width:8px;height:8px;"></div>RO2 trigger / land</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2D6A4F;height:2px;"></div>Actual cash (revenue − obligations − PO payments)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2D6A4F;height:2px;opacity:0.35;"></div>Notional (no PO hits)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C2410C;height:2px;"></div>Shirts remaining</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;height:2px;"></div>Pants remaining</div>
     </div>
   </div>
 
@@ -339,15 +197,12 @@
 
   <div class="assumptions">
     <strong style="color:var(--text-2);">Assumptions</strong><br>
-    Inventory: 1,098 shirts / 550 pants &nbsp;|&nbsp;
-    Retail: $95 shirts / $110 pants / $275 kits (2 shirts + 1 pant) &nbsp;|&nbsp;
-    COGS: $32 shirts / $24 pants &nbsp;|&nbsp;
-    PO terms: 30/70 &nbsp;|&nbsp;
-    Kit mix % = % of pants sold as kits &nbsp;|&nbsp;
-    Shared expenses × your share % &nbsp;|&nbsp;
-    401k + IRA annual → monthly &nbsp;|&nbsp;
-    RO trigger = max(cash gate, inventory ROP month) &nbsp;|&nbsp;
-    RO2 trigger = RO1 land date + burn to next ROP
+    Inventory: 1,098 shirts / 550 pants &nbsp;|&nbsp; Retail: $95 shirts / $110 pants / $275 kits &nbsp;|&nbsp;
+    COGS: $32 shirts / $24 pants &nbsp;|&nbsp; PO terms: 30% deposit at trigger · 70% at landing &nbsp;|&nbsp;
+    Kit mix % = % of pants as kits · each kit = 2 shirts + 1 pant &nbsp;|&nbsp;
+    Shared expenses × your share % &nbsp;|&nbsp; 401k + IRA annual → monthly &nbsp;|&nbsp;
+    Actual cash = revenue − monthly obligations − PO payments at event dates &nbsp;|&nbsp;
+    Notional = revenue − obligations only (no PO hits, for reference)
   </div>
 </main>
 </div>
@@ -364,7 +219,6 @@ function fmtN(n)  { return Math.round(n).toLocaleString(); }
 function fmtMo(n) { return n < 999 ? (Math.round(n * 10) / 10) + ' mo' : 'N/A'; }
 function addMonths(date, m) { const d = new Date(date); d.setMonth(d.getMonth() + Math.round(m)); return d; }
 function monthStr(d) { return d.toLocaleString('en-US', { month: 'short', year: 'numeric' }); }
-
 function toggleAcc(id) { document.getElementById(id).classList.toggle('open'); }
 
 const pairs = [
@@ -395,7 +249,6 @@ pairs.forEach(([rid, nid]) => {
   });
 });
 document.getElementById('freightMode').addEventListener('change', calc);
-
 function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
 
 function calc() {
@@ -404,46 +257,22 @@ function calc() {
   const kitMixPct = Math.min(g('kitMix'), 100) / 100;
   const sharedPct = Math.min(g('sharedPct'), 100) / 100;
 
-  // Kit math
   const kitsPerMonth = Math.floor(pantVel * kitMixPct);
   const shirtInKits  = kitsPerMonth * 2;
   const soloShirts   = Math.max(0, shirtVel - shirtInKits);
   const soloPants    = pantVel - kitsPerMonth;
 
   const monthlyRev   = kitsPerMonth * KIT_RETAIL + soloShirts * SHIRT_RETAIL + soloPants * PANT_RETAIL;
+  // No monthly COGS — COGS paid as lump sums at PO events
+  const monthlyObl   = g('rent') * sharedPct + g('cc') * sharedPct + g('bills') * sharedPct
+                     + g('backpay') + g('house') + g('k401') / 12 + g('ira') / 12;
+  const monthlyCF    = monthlyRev - monthlyObl; // actual monthly cash flow (no COGS)
+
+  // Gross margin reference (as if COGS were monthly — for display only)
   const monthlyCOGS  = shirtVel * SHIRT_COGS + pantVel * PANT_COGS;
-  const monthlyGross = monthlyRev - monthlyCOGS;
-  const grossMargin  = monthlyRev > 0 ? monthlyGross / monthlyRev * 100 : 0;
+  const grossMargin  = monthlyRev > 0 ? (monthlyRev - monthlyCOGS) / monthlyRev * 100 : 0;
 
-  // Obligations
-  const rent    = g('rent')  * sharedPct;
-  const cc      = g('cc')    * sharedPct;
-  const bills   = g('bills') * sharedPct;
-  const backpay = g('backpay');
-  const house   = g('house');
-  const k401mo  = g('k401') / 12;
-  const iramo   = g('ira')  / 12;
-  const monthlyObl = rent + cc + bills + backpay + house + k401mo + iramo;
-  const monthlyNet = monthlyGross - monthlyObl;
-
-  // One-time cash
-  const bday     = g('bday');
-  const wcBuffer = g('wcBuffer');
-
-  // Reorder 1
-  const ro1Shirts  = g('ro1Shirts'), ro1Pants = g('ro1Pants');
-  const ro1PO      = ro1Shirts * SHIRT_COGS + ro1Pants * PANT_COGS;
-  const ro1Deposit = ro1PO * PO_DEPOSIT;
-
-  // Reorder 2
-  const ro2Shirts  = g('ro2Shirts'), ro2Pants = g('ro2Pants');
-  const ro2PO      = ro2Shirts * SHIRT_COGS + ro2Pants * PANT_COGS;
-  const ro2Deposit = ro2PO * PO_DEPOSIT;
-
-  const oneTimeCash = bday + ro1Deposit + wcBuffer;
-
-  document.getElementById('finTotal').textContent   = fmt(monthlyObl) + ' / mo';
-  document.getElementById('finOneTime').textContent = fmt(oneTimeCash) + ' one-time (RO1)';
+  document.getElementById('finTotal').textContent = fmt(monthlyObl) + ' / mo';
 
   // Lead times
   const ltShirtFabric     = g('ltShirtFabric');
@@ -451,51 +280,62 @@ function calc() {
   const ltPantFabric      = g('ltPantFabric');
   const ltPantZipper      = g('ltPantZipper');
   const ltProduction      = g('ltProduction');
-  const ltAir             = g('ltAir');
-  const ltOcean           = g('ltOcean');
-  const safety            = g('safety');
   const useOcean          = document.getElementById('freightMode').value === 'ocean';
-  const freight           = useOcean ? ltOcean : ltAir;
+  const freight           = useOcean ? g('ltOcean') : g('ltAir');
+  const safety            = g('safety');
 
   const shirtLT = ltShirtFabric + ltShirtFabricShip + ltProduction + freight;
   const pantLT  = Math.max(ltPantFabric, ltPantZipper) + ltProduction + freight;
-  const maxLT   = Math.max(shirtLT, pantLT); // governing LT for both products
+  const maxLT   = Math.max(shirtLT, pantLT);
 
   document.getElementById('shirtLTCalc').textContent = Math.round(shirtLT) + ' days';
   document.getElementById('pantLTCalc').textContent  = Math.round(pantLT)  + ' days';
 
-  // ROP: units you need on hand when you place the PO
+  // ROPs
   const shirtROP = Math.round((shirtVel / 30) * shirtLT + shirtVel * safety);
   const pantROP  = Math.round((pantVel  / 30) * pantLT  + pantVel  * safety);
 
-  // Month when inventory hits ROP
+  // RO1 PO costs
+  const ro1Shirts = g('ro1Shirts'), ro1Pants = g('ro1Pants');
+  const ro1PO     = ro1Shirts * SHIRT_COGS + ro1Pants * PANT_COGS;
+  const ro1Dep    = ro1PO * PO_DEPOSIT;
+  const ro1Bal    = ro1PO - ro1Dep;
+
+  // RO2 PO costs
+  const ro2Shirts = g('ro2Shirts'), ro2Pants = g('ro2Pants');
+  const ro2PO     = ro2Shirts * SHIRT_COGS + ro2Pants * PANT_COGS;
+  const ro2Dep    = ro2PO * PO_DEPOSIT;
+  const ro2Bal    = ro2PO - ro2Dep;
+
+  // One-time cash reserve needed before RO1 deposit
+  const bday     = g('bday');
+  const wcBuffer = g('wcBuffer');
+  const reserveNeeded = bday + wcBuffer; // deposit itself comes from ongoing CF
+
+  // RO1 trigger: inventory ROP gate
   const shirtROPmo = shirtVel > 0 && shirtROP < SHIRT_INV ? (SHIRT_INV - shirtROP) / shirtVel : 999;
   const pantROPmo  = pantVel  > 0 && pantROP  < PANT_INV  ? (PANT_INV  - pantROP)  / pantVel  : 999;
   const invGateMo  = Math.min(shirtROPmo, pantROPmo);
 
-  // Cash gate for RO1
-  const cashGateMo = monthlyNet > 0 ? oneTimeCash / monthlyNet : 999;
+  // Cash gate: months until we've accumulated enough for reserve + deposit
+  const cashNeededRO1 = reserveNeeded + ro1Dep;
+  const cashGateMo    = monthlyCF > 0 ? cashNeededRO1 / monthlyCF : 999;
 
-  // RO1 trigger = when BOTH gates are met (latest of the two)
   const ro1TriggerMo = Math.max(cashGateMo, invGateMo < 999 ? invGateMo : cashGateMo);
-  // RO1 lands after lead time
   const ro1LandMo    = ro1TriggerMo + maxLT / 30;
 
-  // At RO1 land, shirt/pant inventory levels
+  // Post RO1 inventory
   const shirtsAtRo1Land = Math.max(0, SHIRT_INV - shirtVel * ro1LandMo);
   const pantsAtRo1Land  = Math.max(0, PANT_INV  - pantVel  * ro1LandMo);
-
-  // Post-RO1 inventory peaks
   const shirtsPost1 = shirtsAtRo1Land + ro1Shirts;
   const pantsPost1  = pantsAtRo1Land  + ro1Pants;
 
-  // RO2 trigger: from RO1 land, burn until ROP again
-  const shirtROP2mo = shirtVel > 0 && shirtROP < shirtsPost1 ? (shirtsPost1 - shirtROP) / shirtVel : 999;
-  const pantROP2mo  = pantVel  > 0 && pantROP  < pantsPost1  ? (pantsPost1  - pantROP)  / pantVel  : 999;
-  const ro2InvMo    = Math.min(shirtROP2mo, pantROP2mo);
-  // Cash gate for RO2 deposit
-  const ro2CashMo   = monthlyNet > 0 ? ro2Deposit / monthlyNet : 999;
-  const ro2TriggerMo = ro1LandMo + Math.max(ro2InvMo < 999 ? ro2InvMo : ro2CashMo, ro2CashMo);
+  // RO2 trigger: burn from RO1 land to next ROP
+  const shirtROP2mo  = shirtVel > 0 && shirtROP < shirtsPost1 ? (shirtsPost1 - shirtROP) / shirtVel : 999;
+  const pantROP2mo   = pantVel  > 0 && pantROP  < pantsPost1  ? (pantsPost1  - pantROP)  / pantVel  : 999;
+  const invGate2Mo   = Math.min(shirtROP2mo, pantROP2mo);
+  const cashGate2Mo  = monthlyCF > 0 ? ro2Dep / monthlyCF : 999; // just need deposit cash by trigger
+  const ro2TriggerMo = ro1LandMo + Math.max(invGate2Mo < 999 ? invGate2Mo : cashGate2Mo, cashGate2Mo);
   const ro2LandMo    = ro2TriggerMo + maxLT / 30;
 
   const shirtsAtRo2Land = Math.max(0, shirtsPost1 - shirtVel * (ro2TriggerMo - ro1LandMo));
@@ -503,104 +343,140 @@ function calc() {
   const shirtsPost2 = shirtsAtRo2Land + ro2Shirts;
   const pantsPost2  = pantsAtRo2Land  + ro2Pants;
 
-  // Dates
   const ro1TriggerDate = addMonths(LAUNCH, ro1TriggerMo);
   const ro1LandDate    = addMonths(LAUNCH, ro1LandMo);
   const ro2TriggerDate = addMonths(LAUNCH, ro2TriggerMo);
   const ro2LandDate    = addMonths(LAUNCH, ro2LandMo);
-
-  // ---- CARDS ----
-  const mColor = grossMargin > 40 ? 'green' : grossMargin > 20 ? 'amber' : 'red';
-  const nColor = monthlyNet > 0 ? 'green' : 'red';
-  const cColor = cashGateMo < 6 ? 'green' : cashGateMo < 10 ? 'amber' : 'red';
-
-  document.getElementById('cards').innerHTML = [
-    { label: 'Monthly revenue',    value: fmt(monthlyRev),    sub: Math.round(grossMargin) + '% gross margin',                color: mColor },
-    { label: 'Monthly net',        value: fmt(monthlyNet),    sub: 'after COGS + obligations',                               color: nColor },
-    { label: 'Kits / month',       value: fmtN(kitsPerMonth), sub: shirtInKits + ' shirts + ' + kitsPerMonth + ' pants used', color: '' },
-    { label: 'RO1 deposit',        value: fmt(ro1Deposit),    sub: 'of ' + fmt(ro1PO) + ' total PO',                         color: '' },
-    { label: 'Cash gate (RO1)',    value: fmtMo(cashGateMo),  sub: 'months of net to clear',                                 color: cColor },
-    { label: 'Inventory gate',     value: fmtMo(invGateMo),   sub: 'shirt ROP @ ' + fmtN(shirtROP),                         color: '' },
-    { label: 'Shirt ROP',          value: fmtN(shirtROP),     sub: 'units on hand at trigger',                               color: '' },
-    { label: 'Pant ROP',           value: fmtN(pantROP),      sub: 'units on hand at trigger',                               color: '' },
-  ].map(c => `<div class="card"><div class="card-label">${c.label}</div><div class="card-value ${c.color}">${c.value}</div><div class="card-sub">${c.sub}</div></div>`).join('');
-
-  // ---- REORDER TIMELINE CARDS ----
-  const ro1Badge = ro1TriggerMo < 6 ? 'green' : ro1TriggerMo < 12 ? 'amber' : 'red';
-  const ro2Badge = ro2TriggerMo < 12 ? 'green' : ro2TriggerMo < 18 ? 'amber' : 'red';
-
-  document.getElementById('roTimeline').innerHTML = `
-    <div class="ro-card ro1">
-      <div class="ro-card-top">
-        <span class="ro-card-name">Reorder 1</span>
-        <span class="ro-card-badge ${ro1Badge}">Month ${Math.round(ro1TriggerMo * 10)/10}</span>
-      </div>
-      <div class="ro-card-date">Place PO: ${monthStr(ro1TriggerDate)}</div>
-      <div class="ro-card-sub">Stock lands: ${monthStr(ro1LandDate)} · ${fmtN(ro1Shirts)} shirts + ${fmtN(ro1Pants)} pants</div>
-      <div class="ro-card-sub" style="margin-top:2px;">Deposit: ${fmt(ro1Deposit)} · Full PO: ${fmt(ro1PO)}</div>
-    </div>
-    <div class="ro-card ro2">
-      <div class="ro-card-top">
-        <span class="ro-card-name">Reorder 2</span>
-        <span class="ro-card-badge ${ro2Badge}">Month ${Math.round(ro2TriggerMo * 10)/10}</span>
-      </div>
-      <div class="ro-card-date">Place PO: ${monthStr(ro2TriggerDate)}</div>
-      <div class="ro-card-sub">Stock lands: ${monthStr(ro2LandDate)} · ${fmtN(ro2Shirts)} shirts + ${fmtN(ro2Pants)} pants</div>
-      <div class="ro-card-sub" style="margin-top:2px;">Deposit: ${fmt(ro2Deposit)} · Full PO: ${fmt(ro2PO)}</div>
-    </div>`;
-
-  // ---- CHART (36 months, sawtooth) ----
-  const MONTHS = 36;
-  const labels = [], shirtData = [], pantData = [], cashData = [];
-  let cumNet = 0, shirts = SHIRT_INV, pants = PANT_INV;
 
   const ro1TriggerIdx = Math.round(ro1TriggerMo);
   const ro1LandIdx    = Math.round(ro1LandMo);
   const ro2TriggerIdx = Math.round(ro2TriggerMo);
   const ro2LandIdx    = Math.round(ro2LandMo);
 
+  // Cards
+  const mColor = grossMargin > 40 ? 'green' : grossMargin > 20 ? 'amber' : 'red';
+  const cfColor = monthlyCF > 0 ? 'green' : 'red';
+  const cColor  = cashGateMo < 6 ? 'green' : cashGateMo < 10 ? 'amber' : 'red';
+
+  document.getElementById('cards').innerHTML = [
+    { label: 'Monthly revenue',     value: fmt(monthlyRev),    sub: Math.round(grossMargin) + '% gross margin (ref)',         color: mColor },
+    { label: 'Monthly cash flow',   value: fmt(monthlyCF),     sub: 'revenue − obligations (no COGS)',                        color: cfColor },
+    { label: 'Kits / month',        value: fmtN(kitsPerMonth), sub: shirtInKits + ' shirts + ' + kitsPerMonth + ' pants used', color: '' },
+    { label: 'Monthly obligations', value: fmt(monthlyObl),    sub: 'your share of all expenses',                              color: '' },
+    { label: 'RO1 deposit',         value: fmt(ro1Dep),        sub: '30% of ' + fmt(ro1PO) + ' PO · balance ' + fmt(ro1Bal) + ' on landing', color: '' },
+    { label: 'Cash gate (RO1)',     value: fmtMo(cashGateMo),  sub: 'months to fund reserve + deposit',                       color: cColor },
+    { label: 'Shirt ROP',           value: fmtN(shirtROP),     sub: 'units on hand when PO placed',                           color: '' },
+    { label: 'Pant ROP',            value: fmtN(pantROP),      sub: 'units on hand when PO placed',                           color: '' },
+  ].map(c => `<div class="card"><div class="card-label">${c.label}</div><div class="card-value ${c.color}">${c.value}</div><div class="card-sub">${c.sub}</div></div>`).join('');
+
+  // RO timeline cards
+  const ro1Badge = ro1TriggerMo < 6 ? 'green' : ro1TriggerMo < 12 ? 'amber' : 'red';
+  const ro2Badge = ro2TriggerMo < 12 ? 'green' : ro2TriggerMo < 18 ? 'amber' : 'red';
+  document.getElementById('roTimeline').innerHTML = `
+    <div class="ro-card ro1">
+      <div class="ro-card-top"><span class="ro-card-name">Reorder 1</span><span class="ro-card-badge ${ro1Badge}">Month ${Math.round(ro1TriggerMo*10)/10}</span></div>
+      <div class="ro-card-date">Place PO: ${monthStr(ro1TriggerDate)}</div>
+      <div class="ro-card-sub">Deposit: ${fmt(ro1Dep)} · Balance due: ${fmt(ro1Bal)}</div>
+      <div class="ro-card-sub">Stock lands: ${monthStr(ro1LandDate)} · ${fmtN(ro1Shirts)} shirts + ${fmtN(ro1Pants)} pants</div>
+    </div>
+    <div class="ro-card ro2">
+      <div class="ro-card-top"><span class="ro-card-name">Reorder 2</span><span class="ro-card-badge ${ro2Badge}">Month ${Math.round(ro2TriggerMo*10)/10}</span></div>
+      <div class="ro-card-date">Place PO: ${monthStr(ro2TriggerDate)}</div>
+      <div class="ro-card-sub">Deposit: ${fmt(ro2Dep)} · Balance due: ${fmt(ro2Bal)}</div>
+      <div class="ro-card-sub">Stock lands: ${monthStr(ro2LandDate)} · ${fmtN(ro2Shirts)} shirts + ${fmtN(ro2Pants)} pants</div>
+    </div>`;
+
+  // Chart data — 36 months
+  const MONTHS = 36;
+  const labels = [], shirtData = [], pantData = [], actualCF = [], notionalCF = [];
+  let cumActual = 0, cumNotional = 0, shirts = SHIRT_INV, pants = PANT_INV;
+
   for (let m = 0; m <= MONTHS; m++) {
     const d = new Date(LAUNCH);
     d.setMonth(d.getMonth() + m);
     labels.push(d.toLocaleString('en-US', { month: 'short', year: '2-digit' }));
 
-    // Apply reorder stock injections at landing months
-    if (m === ro1LandIdx) { shirts += ro1Shirts; pants += ro1Pants; }
-    if (m === ro2LandIdx) { shirts += ro2Shirts; pants += ro2Pants; }
+    // PO cash events — lump hits in actual CF only
+    if (m === ro1TriggerIdx) cumActual -= ro1Dep;   // deposit at trigger
+    if (m === ro1LandIdx)    { cumActual -= ro1Bal; shirts += ro1Shirts; pants += ro1Pants; } // balance + stock
+    if (m === ro2TriggerIdx) cumActual -= ro2Dep;
+    if (m === ro2LandIdx)    { cumActual -= ro2Bal; shirts += ro2Shirts; pants += ro2Pants; }
 
-    cashData.push(Math.round(cumNet));
+    actualCF.push(Math.round(cumActual));
+    notionalCF.push(Math.round(cumNotional));
     shirtData.push(Math.max(0, Math.round(shirts)));
     pantData.push(Math.max(0, Math.round(pants)));
 
-    cumNet += monthlyNet;
-    shirts  = Math.max(0, shirts - shirtVel);
-    pants   = Math.max(0, pants  - pantVel);
-  }
-
-  // Annotation lines for trigger and land months
-  const annotations = {};
-  if (ro1TriggerIdx <= MONTHS) {
-    annotations.ro1Trigger = { type: 'line', xMin: ro1TriggerIdx, xMax: ro1TriggerIdx, borderColor: 'rgba(194,65,12,0.5)', borderWidth: 1, borderDash: [4,3], label: { content: 'RO1 trigger', display: true, position: 'start', color: '#C2410C', font: { size: 9, family: "'DM Mono', monospace" }, backgroundColor: 'transparent', padding: 2 } };
-  }
-  if (ro1LandIdx <= MONTHS) {
-    annotations.ro1Land = { type: 'line', xMin: ro1LandIdx, xMax: ro1LandIdx, borderColor: 'rgba(194,65,12,0.8)', borderWidth: 1.5, label: { content: 'RO1 lands', display: true, position: 'end', color: '#C2410C', font: { size: 9, family: "'DM Mono', monospace" }, backgroundColor: 'transparent', padding: 2 } };
-  }
-  if (ro2TriggerIdx <= MONTHS) {
-    annotations.ro2Trigger = { type: 'line', xMin: ro2TriggerIdx, xMax: ro2TriggerIdx, borderColor: 'rgba(29,78,216,0.5)', borderWidth: 1, borderDash: [4,3], label: { content: 'RO2 trigger', display: true, position: 'start', color: '#1D4ED8', font: { size: 9, family: "'DM Mono', monospace" }, backgroundColor: 'transparent', padding: 2 } };
-  }
-  if (ro2LandIdx <= MONTHS) {
-    annotations.ro2Land = { type: 'line', xMin: ro2LandIdx, xMax: ro2LandIdx, borderColor: 'rgba(29,78,216,0.8)', borderWidth: 1.5, label: { content: 'RO2 lands', display: true, position: 'end', color: '#1D4ED8', font: { size: 9, family: "'DM Mono', monospace" }, backgroundColor: 'transparent', padding: 2 } };
+    cumActual   += monthlyCF;
+    cumNotional += monthlyCF;
+    shirts = Math.max(0, shirts - shirtVel);
+    pants  = Math.max(0, pants  - pantVel);
   }
 
   if (chart) chart.destroy();
+
+  // Custom plugin for vertical event lines
+  const annoPlugin = {
+    id: 'waldruhAnno',
+    afterDraw(ch) {
+      const { ctx, chartArea: { top, bottom }, scales: { x } } = ch;
+      const events = [
+        { idx: ro1TriggerIdx, color: 'rgba(194,65,12,0.45)', dash: [4,3], label: 'RO1 deposit', yOff: 12 },
+        { idx: ro1LandIdx,    color: 'rgba(194,65,12,0.9)',  dash: [],    label: 'RO1 lands',   yOff: 26 },
+        { idx: ro2TriggerIdx, color: 'rgba(29,78,216,0.45)', dash: [4,3], label: 'RO2 deposit', yOff: 12 },
+        { idx: ro2LandIdx,    color: 'rgba(29,78,216,0.9)',  dash: [],    label: 'RO2 lands',   yOff: 26 },
+      ];
+      ctx.save();
+      events.forEach(ev => {
+        if (ev.idx < 0 || ev.idx > MONTHS) return;
+        const xp = x.getPixelForValue(ev.idx);
+        ctx.beginPath(); ctx.setLineDash(ev.dash);
+        ctx.strokeStyle = ev.color; ctx.lineWidth = 1.5;
+        ctx.moveTo(xp, top); ctx.lineTo(xp, bottom); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = ev.color;
+        ctx.font = "9px 'DM Mono', monospace";
+        ctx.textAlign = 'left';
+        ctx.fillText(ev.label, xp + 3, top + ev.yOff);
+      });
+      ctx.restore();
+    }
+  };
+
   chart = new Chart(document.getElementById('burnChart'), {
     type: 'line',
+    plugins: [annoPlugin],
     data: {
       labels,
       datasets: [
-        { label: 'Cumulative net ($)', data: cashData,  borderColor: '#2D6A4F', backgroundColor: 'rgba(45,106,79,0.07)', fill: true, tension: 0.3, yAxisID: 'y1', pointRadius: 2, borderWidth: 2 },
-        { label: 'Shirts remaining',   data: shirtData, borderColor: '#C2410C', backgroundColor: 'transparent', tension: 0, yAxisID: 'y2', pointRadius: 2, borderDash: [5,3], borderWidth: 2 },
-        { label: 'Pants remaining',    data: pantData,  borderColor: '#1D4ED8', backgroundColor: 'transparent', tension: 0, yAxisID: 'y2', pointRadius: 2, borderDash: [2,3], borderWidth: 2 }
+        {
+          label: 'Actual cash',
+          data: actualCF,
+          borderColor: '#2D6A4F',
+          backgroundColor: 'rgba(45,106,79,0.06)',
+          fill: true, tension: 0.15, yAxisID: 'y1', pointRadius: 2, borderWidth: 2.5
+        },
+        {
+          label: 'Notional (no PO hits)',
+          data: notionalCF,
+          borderColor: 'rgba(45,106,79,0.3)',
+          backgroundColor: 'transparent',
+          fill: false, tension: 0.3, yAxisID: 'y1', pointRadius: 0, borderWidth: 1.5, borderDash: [6,4]
+        },
+        {
+          label: 'Shirts remaining',
+          data: shirtData,
+          borderColor: '#C2410C',
+          backgroundColor: 'transparent',
+          tension: 0, yAxisID: 'y2', pointRadius: 2, borderDash: [5,3], borderWidth: 2
+        },
+        {
+          label: 'Pants remaining',
+          data: pantData,
+          borderColor: '#1D4ED8',
+          backgroundColor: 'transparent',
+          tension: 0, yAxisID: 'y2', pointRadius: 2, borderDash: [2,3], borderWidth: 2
+        }
       ]
     },
     options: {
@@ -612,16 +488,18 @@ function calc() {
           backgroundColor: '#1A1815', titleColor: '#9E9A94', bodyColor: '#F5F2ED', padding: 10,
           callbacks: {
             label: ctx => {
-              if (ctx.datasetIndex === 0) return '  Net cash: $' + Math.round(ctx.raw).toLocaleString();
-              return '  ' + ctx.dataset.label + ': ' + Math.round(ctx.raw).toLocaleString();
+              const v = Math.round(ctx.raw).toLocaleString();
+              if (ctx.datasetIndex === 0) return '  Actual cash: $' + v;
+              if (ctx.datasetIndex === 1) return '  Notional: $' + v;
+              return '  ' + ctx.dataset.label + ': ' + v;
             },
-            afterBody: (items) => {
+            afterBody: items => {
               const m = items[0].dataIndex;
               const notes = [];
-              if (m === ro1TriggerIdx) notes.push('▶ Place RO1 PO today');
-              if (m === ro1LandIdx)    notes.push('▶ RO1 stock arrives');
-              if (m === ro2TriggerIdx) notes.push('▶ Place RO2 PO today');
-              if (m === ro2LandIdx)    notes.push('▶ RO2 stock arrives');
+              if (m === ro1TriggerIdx) notes.push('▼ RO1 deposit: ' + fmt(ro1Dep));
+              if (m === ro1LandIdx)    notes.push('▼ RO1 balance: ' + fmt(ro1Bal) + ' · stock arrives');
+              if (m === ro2TriggerIdx) notes.push('▼ RO2 deposit: ' + fmt(ro2Dep));
+              if (m === ro2LandIdx)    notes.push('▼ RO2 balance: ' + fmt(ro2Bal) + ' · stock arrives');
               return notes;
             }
           }
@@ -629,63 +507,32 @@ function calc() {
       },
       scales: {
         x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { family: "'DM Mono', monospace", size: 10 }, color: '#9E9A94', maxRotation: 45, autoSkip: true, maxTicksLimit: 18 } },
-        y1: { type: 'linear', position: 'left', grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => '$' + (Math.abs(v) >= 1000 ? Math.round(v/1000) + 'k' : v), font: { family: "'DM Mono', monospace", size: 10 }, color: '#9E9A94' } },
-        y2: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, ticks: { font: { family: "'DM Mono', monospace", size: 10 }, color: '#9E9A94' } }
+        y1: {
+          type: 'linear', position: 'left',
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: { callback: v => (v < 0 ? '-' : '') + '$' + (Math.abs(v) >= 1000 ? Math.round(Math.abs(v)/1000) + 'k' : Math.abs(v)), font: { family: "'DM Mono', monospace", size: 10 }, color: '#9E9A94' }
+        },
+        y2: {
+          type: 'linear', position: 'right',
+          grid: { drawOnChartArea: false },
+          ticks: { font: { family: "'DM Mono', monospace", size: 10 }, color: '#9E9A94' }
+        }
       }
     }
   });
 
-  // Draw vertical annotation lines manually via plugin since we're not loading the annotation plugin
-  // We'll use Chart.js afterDraw to draw lines
-  Chart.registry.plugins.get('waldruhAnnotations') && Chart.registry.unregister({ id: 'waldruhAnnotations' });
-  const annoPlugin = {
-    id: 'waldruhAnnotations',
-    afterDraw(chartInst) {
-      const { ctx, chartArea: { top, bottom }, scales: { x } } = chartInst;
-      const events = [
-        { idx: ro1TriggerIdx, color: 'rgba(194,65,12,0.4)', dash: [4,3], label: 'RO1 trigger', labelPos: 'top' },
-        { idx: ro1LandIdx,    color: 'rgba(194,65,12,0.9)', dash: [],    label: 'RO1 lands',   labelPos: 'bottom' },
-        { idx: ro2TriggerIdx, color: 'rgba(29,78,216,0.4)', dash: [4,3], label: 'RO2 trigger', labelPos: 'top' },
-        { idx: ro2LandIdx,    color: 'rgba(29,78,216,0.9)', dash: [],    label: 'RO2 lands',   labelPos: 'bottom' },
-      ];
-      ctx.save();
-      events.forEach(ev => {
-        if (ev.idx < 0 || ev.idx > MONTHS) return;
-        const xPos = x.getPixelForValue(ev.idx);
-        ctx.beginPath();
-        ctx.setLineDash(ev.dash);
-        ctx.strokeStyle = ev.color;
-        ctx.lineWidth = 1.5;
-        ctx.moveTo(xPos, top);
-        ctx.lineTo(xPos, bottom);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = ev.color;
-        ctx.font = "9px 'DM Mono', monospace";
-        ctx.textAlign = 'left';
-        const yPos = ev.labelPos === 'top' ? top + 10 : bottom - 4;
-        ctx.fillText(ev.label, xPos + 3, yPos);
-      });
-      ctx.restore();
-    }
-  };
-  Chart.register(annoPlugin);
-
-  // Re-draw with plugin
-  chart.update();
-
   // Scenario
   let scenario = '';
-  if (monthlyNet <= 0) {
-    scenario = `Obligations exceed net revenue — running a deficit of ${fmt(Math.abs(monthlyNet))}/month. Reorder planning is secondary. Focus first on velocity.`;
+  if (monthlyCF <= 0) {
+    scenario = `Monthly obligations exceed revenue — negative cash flow of ${fmt(Math.abs(monthlyCF))}/month before any PO payments. Address this before anything else.`;
   } else if (shirtVel <= 50) {
-    scenario = `Bear territory. At ${shirtVel} shirts/month, RO1 trigger is month ${Math.round(ro1TriggerMo * 10)/10} and stock lands ${monthStr(ro1LandDate)}. Slow burn means cash pressure outpaces inventory pressure. Validate paid social before committing RO2.`;
+    scenario = `Bear territory. Cash builds slowly at ${fmt(monthlyCF)}/month. The gap between the actual and notional lines shows the real hit of each PO. RO1 deposit of ${fmt(ro1Dep)} drops in ${monthStr(ro1TriggerDate)}.`;
   } else if (shirtVel <= 120) {
-    scenario = `Base case. RO1 PO drops ${monthStr(ro1TriggerDate)}, stock arrives ${monthStr(ro1LandDate)}. Net after obligations is ${fmt(monthlyNet)}/month — solid but not bulletproof. RO2 trigger in month ${Math.round(ro2TriggerMo * 10)/10}.`;
+    scenario = `Base case. ${fmt(monthlyCF)}/month cash flow before PO events. Watch the actual cash line — the dips at RO1 trigger (${fmt(ro1Dep)}) and landing (${fmt(ro1Bal)}) are your two biggest single-month hits. Make sure the line stays above zero.`;
   } else if (shirtVel <= 200) {
-    scenario = `Strong case. Inventory burns fast — shirt ROP of ${fmtN(shirtROP)} units is the binding constraint. RO1 PO needs to drop by ${monthStr(ro1TriggerDate)}. Start Illidan conversations now. RO2 follows ${monthStr(ro2TriggerDate)}.`;
+    scenario = `Strong case. Cash builds fast enough that PO hits are manageable. RO1 drops ${monthStr(ro1TriggerDate)}, lands ${monthStr(ro1LandDate)}. The sawtooth on inventory and the step-drops on cash should both be visible in the chart.`;
   } else {
-    scenario = `Bull case. You're moving fast enough that both reorders are tightly stacked. Watch the chart — if the sawtooth dips toward zero between cycles, your lead time or reorder size needs to increase. Consider larger RO2 quantities.`;
+    scenario = `Bull case. High velocity means PO events come quickly and close together. The actual vs notional gap widens substantially — that's real capital being deployed. Make sure you're not dipping below zero on actual cash between deposit and balance events.`;
   }
   document.getElementById('scenarioRead').textContent = scenario;
 }
