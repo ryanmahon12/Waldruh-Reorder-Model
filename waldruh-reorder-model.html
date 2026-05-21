@@ -100,31 +100,31 @@
 
   .controls-group { margin-bottom: 2rem; }
 
-  .slider-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .slider-block {
     margin-bottom: 14px;
   }
 
-  .slider-row label {
-    font-size: 12px;
-    color: var(--text-2);
-    width: 148px;
-    flex-shrink: 0;
+  .slider-block label {
+    font-size: 11px;
+    color: var(--text-3);
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 0.04em;
   }
 
-  .slider-row input[type=range] {
-    flex: 1;
+  .slider-block input[type=range] {
+    width: 100%;
     -webkit-appearance: none;
     appearance: none;
     height: 3px;
     background: var(--border-strong);
     border-radius: 2px;
     outline: none;
+    display: block;
+    margin-bottom: 5px;
   }
 
-  .slider-row input[type=range]::-webkit-slider-thumb {
+  .slider-block input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
@@ -135,13 +135,26 @@
     box-shadow: 0 0 0 1px var(--accent);
   }
 
-  .slider-row span {
+  .slider-block input[type=number] {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    min-width: 72px;
-    text-align: right;
     color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 7px;
+    width: 100%;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  .slider-block input[type=number]::-webkit-inner-spin-button,
+  .slider-block input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .slider-block input[type=number]:focus {
+    border-color: var(--accent);
+    background: var(--surface);
   }
 
   .cards-grid {
@@ -357,67 +370,67 @@
   <aside class="sidebar">
     <div class="controls-group">
       <div class="section-label">Demand & velocity</div>
-      <div class="slider-row">
+      <div class="slider-block">
         <label>Shirts / month</label>
-        <input type="range" id="shirtVel" min="20" max="300" step="5" value="100">
-        <span id="shirtVelOut">100 / mo</span>
+        <input type="range" id="shirtVel" min="20" max="300" step="1" value="100">
+        <input type="number" id="shirtVelN" min="20" max="300" step="1" value="100">
       </div>
-      <div class="slider-row">
+      <div class="slider-block">
         <label>Pants / month</label>
-        <input type="range" id="pantVel" min="10" max="150" step="5" value="50">
-        <span id="pantVelOut">50 / mo</span>
+        <input type="range" id="pantVel" min="10" max="150" step="1" value="50">
+        <input type="number" id="pantVelN" min="10" max="150" step="1" value="50">
       </div>
-      <div class="slider-row">
-        <label>Kit mix (% shirts)</label>
-        <input type="range" id="kitMix" min="0" max="60" step="5" value="25">
-        <span id="kitMixOut">25%</span>
+      <div class="slider-block">
+        <label>Kit mix — % of shirts in kits</label>
+        <input type="range" id="kitMix" min="0" max="60" step="1" value="25">
+        <input type="number" id="kitMixN" min="0" max="60" step="1" value="25">
       </div>
     </div>
 
     <div class="controls-group">
       <div class="section-label">Reorder size</div>
-      <div class="slider-row">
-        <label>Reorder shirts</label>
-        <input type="range" id="roShirts" min="300" max="3000" step="100" value="1000">
-        <span id="roShirtsOut">1,000 units</span>
+      <div class="slider-block">
+        <label>Reorder shirts (units)</label>
+        <input type="range" id="roShirts" min="300" max="3000" step="1" value="1000">
+        <input type="number" id="roShirtsN" min="300" max="3000" step="1" value="1000">
       </div>
-      <div class="slider-row">
-        <label>Reorder pants</label>
-        <input type="range" id="roPants" min="150" max="1500" step="50" value="500">
-        <span id="roPantsOut">500 units</span>
+      <div class="slider-block">
+        <label>Reorder pants (units)</label>
+        <input type="range" id="roPants" min="150" max="1500" step="1" value="500">
+        <input type="number" id="roPantsN" min="150" max="1500" step="1" value="500">
       </div>
     </div>
 
     <div class="controls-group">
       <div class="section-label">Financial goals</div>
-      <div class="slider-row">
-        <label>Birthday fund</label>
-        <input type="range" id="bday" min="5000" max="15000" step="500" value="10000">
-        <span id="bdayOut">$10,000</span>
+      <div class="slider-block">
+        <label>Birthday fund ($)</label>
+        <input type="range" id="bday" min="5000" max="15000" step="100" value="10000">
+        <input type="number" id="bdayN" min="5000" max="15000" step="100" value="10000">
       </div>
-      <div class="slider-row">
-        <label>Working capital</label>
-        <input type="range" id="wcBuffer" min="0" max="25000" step="1000" value="10000">
-        <span id="wcBufferOut">$10,000</span>
+      <div class="slider-block">
+        <label>Working capital buffer ($)</label>
+        <input type="range" id="wcBuffer" min="0" max="25000" step="100" value="10000">
+        <input type="number" id="wcBufferN" min="0" max="25000" step="100" value="10000">
       </div>
     </div>
 
     <div class="controls-group">
-      <div class="section-label">Lead times (days)</div>
-      <div class="slider-row">
-        <label>Shirt total LT</label>
-        <input type="range" id="shirtLT" min="60" max="150" step="5" value="102">
-        <span id="shirtLTOut">102 days</span>
+      <div class="section-label">Lead times</div>
+      <div class="slider-block">
+        <label>Shirt total lead time (days)</label>
+        <input type="range" id="shirtLT" min="60" max="150" step="1" value="102">
+        <input type="number" id="shirtLTN" min="60" max="150" step="1" value="102">
       </div>
-      <div class="slider-row">
-        <label>Pant total LT</label>
-        <input type="range" id="pantLT" min="40" max="100" step="5" value="65">
-        <span id="pantLTOut">65 days</span>
+      <div class="slider-block">
+        <label>Pant total lead time (days)</label>
+        <input type="range" id="pantLT" min="40" max="100" step="1" value="65">
+        <input type="number" id="pantLTN" min="40" max="100" step="1" value="65">
       </div>
-      <div class="slider-row">
-        <label>Safety stock (mo)</label>
-        <input type="range" id="safety" min="0.5" max="3" step="0.5" value="1">
-        <span id="safetyOut">1 mo</span>
+      <div class="slider-block">
+        <label>Safety stock (months)</label>
+        <input type="range" id="safety" min="0.5" max="3" step="0.1" value="1">
+        <input type="number" id="safetyN" min="0.5" max="3" step="0.1" value="1">
       </div>
     </div>
   </aside>
@@ -483,28 +496,42 @@ function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
 function fmtN(n) { return Math.round(n).toLocaleString(); }
 function fmtMo(n) { return n < 100 ? (Math.round(n * 10) / 10) + ' mo' : 'N/A'; }
 
-function calc() {
-  const shirtVel = parseInt(document.getElementById('shirtVel').value);
-  const pantVel = parseInt(document.getElementById('pantVel').value);
-  const kitMix = parseInt(document.getElementById('kitMix').value) / 100;
-  const roShirts = parseInt(document.getElementById('roShirts').value);
-  const roPants = parseInt(document.getElementById('roPants').value);
-  const bdayTarget = parseInt(document.getElementById('bday').value);
-  const wcBuffer = parseInt(document.getElementById('wcBuffer').value);
-  const shirtLT = parseInt(document.getElementById('shirtLT').value);
-  const pantLT = parseInt(document.getElementById('pantLT').value);
-  const safety = parseFloat(document.getElementById('safety').value);
+const pairs = [
+  ['shirtVel','shirtVelN'], ['pantVel','pantVelN'], ['kitMix','kitMixN'],
+  ['roShirts','roShirtsN'], ['roPants','roPantsN'],
+  ['bday','bdayN'], ['wcBuffer','wcBufferN'],
+  ['shirtLT','shirtLTN'], ['pantLT','pantLTN'], ['safety','safetyN']
+];
 
-  document.getElementById('shirtVelOut').textContent = shirtVel + ' / mo';
-  document.getElementById('pantVelOut').textContent = pantVel + ' / mo';
-  document.getElementById('kitMixOut').textContent = (kitMix * 100) + '%';
-  document.getElementById('roShirtsOut').textContent = roShirts.toLocaleString() + ' units';
-  document.getElementById('roPantsOut').textContent = roPants.toLocaleString() + ' units';
-  document.getElementById('bdayOut').textContent = fmt(bdayTarget);
-  document.getElementById('wcBufferOut').textContent = fmt(wcBuffer);
-  document.getElementById('shirtLTOut').textContent = shirtLT + ' days';
-  document.getElementById('pantLTOut').textContent = pantLT + ' days';
-  document.getElementById('safetyOut').textContent = safety + ' mo';
+pairs.forEach(([rid, nid]) => {
+  const range = document.getElementById(rid);
+  const num = document.getElementById(nid);
+  range.addEventListener('input', () => { num.value = range.value; calc(); });
+  num.addEventListener('input', () => {
+    const v = parseFloat(num.value);
+    if (!isNaN(v)) { range.value = v; calc(); }
+  });
+  num.addEventListener('change', () => {
+    let v = parseFloat(num.value);
+    if (isNaN(v)) v = parseFloat(range.min);
+    v = Math.min(Math.max(v, parseFloat(range.min)), parseFloat(range.max));
+    num.value = v;
+    range.value = v;
+    calc();
+  });
+});
+
+function calc() {
+  const shirtVel = parseFloat(document.getElementById('shirtVel').value);
+  const pantVel = parseFloat(document.getElementById('pantVel').value);
+  const kitMix = parseFloat(document.getElementById('kitMix').value) / 100;
+  const roShirts = parseFloat(document.getElementById('roShirts').value);
+  const roPants = parseFloat(document.getElementById('roPants').value);
+  const bdayTarget = parseFloat(document.getElementById('bday').value);
+  const wcBuffer = parseFloat(document.getElementById('wcBuffer').value);
+  const shirtLT = parseFloat(document.getElementById('shirtLT').value);
+  const pantLT = parseFloat(document.getElementById('pantLT').value);
+  const safety = parseFloat(document.getElementById('safety').value);
 
   const kitShirts = Math.round(shirtVel * kitMix);
   const soloShirts = shirtVel - kitShirts;
@@ -714,7 +741,6 @@ function calc() {
   document.getElementById('scenarioRead').textContent = scenario;
 }
 
-document.querySelectorAll('input[type=range]').forEach(el => el.addEventListener('input', calc));
 calc();
 </script>
 </body>
